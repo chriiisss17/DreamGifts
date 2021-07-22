@@ -12,9 +12,11 @@ import view.Ventana_login;
 public class Main {
     public static void main(String[] args)
     {
-      Ventana_login vtl = new Ventana_login();
+      /*Ventana_login vtl = new Ventana_login();
       vtl.setVisible(true);
-      Ventana vt = new Ventana();
+      Ventana vt = new Ventana();*/
+       Ventana vt = new Ventana();
+       vt.setVisible(true);
       
       //COMPROBAR CONEXIÓN A LA BASE DE DATOS
       Conexion conexion = new Conexion();
