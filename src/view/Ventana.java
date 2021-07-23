@@ -4,17 +4,22 @@
  * and open the template in the editor.
  */
 package view;
+import controller.ControllerArticulo;
 import controller.ControllerBanco;
 import controller.ControllerComuna;
+import controller.ControllerPack;
 import controller.ControllerRrss;
 import controller.Controller_usuarios;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Articulo;
 import model.Banco;
 import model.Comuna;
+import model.Pack;
 import model.RRSS;
 import model.Usuario;
 /**
@@ -30,6 +35,7 @@ public class Ventana extends javax.swing.JFrame {
     public static int idRs;
     public static int idBanco;
     public static int idUsuario;
+    public static int rowArticulo=0;
     
     public Ventana() {
         initComponents();
@@ -96,6 +102,14 @@ public class Ventana extends javax.swing.JFrame {
     public void emptyIdRrss()
     {
         idRs=0;
+    }
+    public void emptyRowArticulo()
+    {
+        rowArticulo=0;
+    }
+    public void emptyCantArticulo()
+    {
+        txt_unidadesArticulo.setText("");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -200,13 +214,13 @@ public class Ventana extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         btn_guardar3 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txt_precioPack = new javax.swing.JTextField();
+        txt_nombrePack = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        txt_unidadesArticulo = new javax.swing.JTextField();
+        jl_buttonSend = new javax.swing.JLabel();
+        jl_buttonBack = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
         tbl_articuloPackSelect = new javax.swing.JTable();
         jScrollPane8 = new javax.swing.JScrollPane();
@@ -1332,30 +1346,40 @@ public class Ventana extends javax.swing.JFrame {
 
         jLabel14.setText("Unidades");
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        txt_unidadesArticulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                txt_unidadesArticuloActionPerformed(evt);
             }
         });
 
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mayorque.png"))); // NOI18N
+        jl_buttonSend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mayorque.png"))); // NOI18N
+        jl_buttonSend.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jl_buttonSendMouseClicked(evt);
+            }
+        });
 
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/menorque.png"))); // NOI18N
+        jl_buttonBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/menorque.png"))); // NOI18N
+        jl_buttonBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jl_buttonBackMouseClicked(evt);
+            }
+        });
 
         tbl_articuloPackSelect.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Descripcion", "ID"
+                "Unidades", "Descripcion", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1405,7 +1429,7 @@ public class Ventana extends javax.swing.JFrame {
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt_nombrePack, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1413,16 +1437,16 @@ public class Ventana extends javax.swing.JFrame {
                         .addComponent(jLabel14)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20)
-                            .addComponent(jLabel21)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jl_buttonBack)
+                            .addComponent(txt_unidadesArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jl_buttonSend))))
                 .addGap(153, 153, 153)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txt_precioPack, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(114, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel22Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1435,25 +1459,25 @@ public class Ventana extends javax.swing.JFrame {
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_nombrePack, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jl_buttonSend, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_unidadesArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel21))
+                        .addComponent(jl_buttonBack))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_precioPack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2199,12 +2223,26 @@ public class Ventana extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchUsuario1MouseClicked
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void txt_unidadesArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_unidadesArticuloActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_txt_unidadesArticuloActionPerformed
 
     private void btn_guardar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardar3ActionPerformed
-        // TODO add your handling code here:
+        txt_precioPack.getText();
+        
+        ControllerPack ctrPk = new ControllerPack();
+        
+        try{
+            Pack pk = new Pack();
+            pk.setPck_nombre(txt_nombrePack.getText());
+            pk.setPck_costo(txt_precioPack.getText());
+            pk.setPck_stock(1);
+            pk.setPck_estado(true);
+            ctrPk.createPack(pk);
+        }catch(Exception err)
+        {
+            System.out.println("ERROR EN LA VISTA PACK " +err.getMessage());
+        }
     }//GEN-LAST:event_btn_guardar3ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -2212,12 +2250,56 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jp_packAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jp_packAncestorAdded
-        System.out.println("PRUEBA");
+        ControllerArticulo ctrA = new ControllerArticulo();
+        ArrayList<Articulo> listArticulo = new ArrayList<>();
+        try{
+            listArticulo=ctrA.listArticulo();
+            DefaultTableModel tableArticulo = (DefaultTableModel)tbl_articuloPack.getModel();
+            tableArticulo.setRowCount(0);
+            for(Articulo articulo: listArticulo)
+            {
+                Object[] fila ={
+                    articulo.getArt_descripcion(),
+                    articulo.getArt_id_articulo()
+                };
+                tableArticulo.addRow(fila);
+            }
+            
+        }catch(Exception err)
+        {
+            System.out.println("ERROR EN LA VISTA LISTA ARTICULO "+err.getMessage());
+        }
     }//GEN-LAST:event_jp_packAncestorAdded
 
     private void tbl_articuloPackAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tbl_articuloPackAncestorAdded
         
     }//GEN-LAST:event_tbl_articuloPackAncestorAdded
+
+    private void jl_buttonSendMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_buttonSendMouseClicked
+        if(txt_unidadesArticulo.getText().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Debe indicar la cantidad");
+        }else{
+            int indice = tbl_articuloPack.getSelectedRow();
+            String name =(String) tbl_articuloPack.getValueAt(indice, 0);
+            int id = (Integer) tbl_articuloPack.getValueAt(indice, 1);
+            String unit = txt_unidadesArticulo.getText();
+            DefaultTableModel tableSelect = (DefaultTableModel)tbl_articuloPackSelect.getModel();
+            tableSelect.setRowCount(rowArticulo);
+            Object[] fila={
+              unit,name,id  
+            };
+            tableSelect.addRow(fila);
+            rowArticulo++;
+            emptyCantArticulo();
+        }
+    }//GEN-LAST:event_jl_buttonSendMouseClicked
+
+    private void jl_buttonBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_buttonBackMouseClicked
+        DefaultTableModel tableSelect = (DefaultTableModel)tbl_articuloPackSelect.getModel();
+        int indice = tbl_articuloPackSelect.getSelectedRow();
+        tableSelect.removeRow(indice);
+        emptyRowArticulo();
+    }//GEN-LAST:event_jl_buttonBackMouseClicked
     //METÓDO QUE VALIDA QUE SE INGRESEN 2 NUMEROS
     private static boolean validarCod(String datos){
         return datos.matches("[0-9][1.2]");
@@ -2299,8 +2381,6 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2354,9 +2434,8 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel jl_buttonBack;
+    private javax.swing.JLabel jl_buttonSend;
     private javax.swing.JPanel jp_pack;
     private javax.swing.JTextField nombreRrss;
     private javax.swing.JLabel searchBanco;
@@ -2376,7 +2455,10 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JTextField txt_comunasRegistradas;
     private javax.swing.JTextField txt_nameusuario1;
     private javax.swing.JTextField txt_nombreComuna;
+    private javax.swing.JTextField txt_nombrePack;
     private javax.swing.JPasswordField txt_passw1;
+    private javax.swing.JTextField txt_precioPack;
+    private javax.swing.JTextField txt_unidadesArticulo;
     private javax.swing.JPasswordField txt_verificar1;
     // End of variables declaration//GEN-END:variables
 }

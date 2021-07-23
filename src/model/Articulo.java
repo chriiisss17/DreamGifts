@@ -1,18 +1,17 @@
 
 package model;
 
-import java.sql.Date;
 
 /**
  *
  * @author christian
  */
-public class Articulo {
+public class Articulo{
     
     private int art_id_articulo;
     private String art_descripcion;
     private int art_stock;
-    private Date art_fecha_vencimiento;
+    private String art_fecha_vencimiento;
     private boolean art_estado;
     
     public Articulo()
@@ -20,11 +19,11 @@ public class Articulo {
         this.art_id_articulo=0;
         this.art_descripcion="";
         this.art_stock=0;
-        this.art_fecha_vencimiento=new Date(1);
+        this.art_fecha_vencimiento="";
         this.art_estado=false;
     }
 
-    public Articulo(int art_id_articulo, String art_descripcion, int art_stock, Date art_fecha_vencimiento, boolean art_estado) {
+    public Articulo(int art_id_articulo, String art_descripcion, int art_stock, String art_fecha_vencimiento, boolean art_estado) {
         this.art_id_articulo = art_id_articulo;
         this.art_descripcion = art_descripcion;
         this.art_stock = art_stock;
@@ -56,11 +55,11 @@ public class Articulo {
         this.art_stock = art_stock;
     }
 
-    public Date getArt_fecha_vencimiento() {
+    public String getArt_fecha_vencimiento() {
         return art_fecha_vencimiento;
     }
 
-    public void setArt_fecha_vencimiento(Date art_fecha_vencimiento) {
+    public void setArt_fecha_vencimiento(String art_fecha_vencimiento) {
         this.art_fecha_vencimiento = art_fecha_vencimiento;
     }
 
@@ -76,6 +75,4 @@ public class Articulo {
     public String toString() {
         return "Articulo{" + "art_id_articulo=" + art_id_articulo + ", art_descripcion=" + art_descripcion + ", art_stock=" + art_stock + ", art_fecha_vencimiento=" + art_fecha_vencimiento + ", art_estado=" + art_estado + '}';
     }
-    
-    
 }
