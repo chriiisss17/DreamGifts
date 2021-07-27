@@ -5,8 +5,8 @@
         <group>
             <file>file:/C:/Users/christian/Documents/NetBeansProjects/DreamGifts/src/view/Ventana.java</file>
             <file>file:/C:/Users/christian/Documents/NetBeansProjects/DreamGifts/src/model/Articulo.java</file>
-            <file>file:/C:/Users/christian/Documents/NetBeansProjects/DreamGifts/src/controller/ControllerComuna.java</file>
-            <file>file:/C:/Users/christian/Documents/NetBeansProjects/DreamGifts/src/controller/ControllerArticulo.java</file>
+            <file>file:/C:/Users/christian/Documents/NetBeansProjects/DreamGifts/src/controller/ControllerPack.java</file>
+            <file>file:/C:/Users/christian/Documents/NetBeansProjects/DreamGifts/src/model/Pack.java</file>
         </group>
     </open-files>
 </project-private>

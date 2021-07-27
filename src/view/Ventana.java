@@ -13,6 +13,7 @@ import controller.Controller_usuarios;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -1381,9 +1382,16 @@ public class Ventana extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane7.setViewportView(tbl_articuloPackSelect);
@@ -1403,9 +1411,16 @@ public class Ventana extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tbl_articuloPack.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -2228,17 +2243,32 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_unidadesArticuloActionPerformed
 
     private void btn_guardar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardar3ActionPerformed
-        txt_precioPack.getText();
         
         ControllerPack ctrPk = new ControllerPack();
         
         try{
-            Pack pk = new Pack();
-            pk.setPck_nombre(txt_nombrePack.getText());
-            pk.setPck_costo(txt_precioPack.getText());
-            pk.setPck_stock(1);
-            pk.setPck_estado(true);
-            ctrPk.createPack(pk);
+            if(txt_precioPack.getText().isEmpty()|| txt_precioPack.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Los campos están vacíos");
+            }else{
+                Pack pk = new Pack();
+                pk.setPck_nombre(txt_nombrePack.getText());
+                pk.setPck_costo(txt_precioPack.getText());
+                pk.setPck_stock(1);
+                pk.setPck_estado(true);
+                DefaultTableModel tableIsSelected = (DefaultTableModel) tbl_articuloPackSelect.getModel();
+                List<Object> listIdArticulos = new ArrayList<Object>();
+                for(int i=0;i<tableIsSelected.getRowCount();i++)
+                {
+                    Object[] fila={
+                       tableIsSelected.getValueAt(i, 0) 
+                      ,tableIsSelected.getValueAt(i, 2)
+                    };
+                    listIdArticulos.add(fila);
+                }
+               // System.out.println("lista de id: "+listIdArticulos);
+                ctrPk.createPack(pk,listIdArticulos);
+                //JOptionPane.showMessageDialog(rootPane, "Pack almacenado correctamente");
+            }
         }catch(Exception err)
         {
             System.out.println("ERROR EN LA VISTA PACK " +err.getMessage());
@@ -2284,6 +2314,7 @@ public class Ventana extends javax.swing.JFrame {
             int id = (Integer) tbl_articuloPack.getValueAt(indice, 1);
             String unit = txt_unidadesArticulo.getText();
             DefaultTableModel tableSelect = (DefaultTableModel)tbl_articuloPackSelect.getModel();
+            DefaultTableModel tableIsSelected = (DefaultTableModel)tbl_articuloPack.getModel();
             tableSelect.setRowCount(rowArticulo);
             Object[] fila={
               unit,name,id  
@@ -2291,13 +2322,23 @@ public class Ventana extends javax.swing.JFrame {
             tableSelect.addRow(fila);
             rowArticulo++;
             emptyCantArticulo();
+            tableIsSelected.removeRow(indice);
+            tableIsSelected.fireTableDataChanged(); 
         }
     }//GEN-LAST:event_jl_buttonSendMouseClicked
 
     private void jl_buttonBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_buttonBackMouseClicked
-        DefaultTableModel tableSelect = (DefaultTableModel)tbl_articuloPackSelect.getModel();
+        DefaultTableModel tableIsSelect = (DefaultTableModel)tbl_articuloPackSelect.getModel();
         int indice = tbl_articuloPackSelect.getSelectedRow();
-        tableSelect.removeRow(indice);
+        String unit = (String)tbl_articuloPackSelect.getValueAt(indice, 0);
+        String name =(String) tbl_articuloPackSelect.getValueAt(indice, 1);
+        int id = (Integer) tbl_articuloPackSelect.getValueAt(indice, 2);
+        tableIsSelect.removeRow(indice);
+        DefaultTableModel tableSelect =(DefaultTableModel)tbl_articuloPack.getModel();
+        Object[] fila={
+              name,id  
+            };
+        tableSelect.addRow(fila);
         emptyRowArticulo();
     }//GEN-LAST:event_jl_buttonBackMouseClicked
     //METÓDO QUE VALIDA QUE SE INGRESEN 2 NUMEROS

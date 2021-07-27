@@ -17,11 +17,11 @@ import model.Pack;
  */
 public class ControllerPack {
     //MÉTODO QUE CREA UN PACK
-    public void createPack(Pack pack)
+    public void createPack(Pack pack, Object listIdArticulo)
     {
         Conexion conexion = new Conexion();
         try{
-            Connection conn = conexion.getConnection();
+            /*Connection conn = conexion.getConnection();
             Statement stmt = conn.createStatement();
             
             String consulta = "INSERT INTO PACK (PCK_NOMBRE,PCK_COSTO,PCK_STOCK,PCK_ESTADO) VALUES ("
@@ -34,7 +34,9 @@ public class ControllerPack {
             System.out.println("Consulta a ejecutar "+consulta);
             stmt.executeUpdate(consulta);
             System.out.println("Consulta ejecutada correctamente");
+            */
             
+            System.out.println(listIdArticulo);
         }catch(Exception err)
         {
             System.out.println("ERROR EN EL METODO CREAR PACK "+err.getMessage());
@@ -54,4 +56,23 @@ public class ControllerPack {
         }
         
     }*/
+    
+    //MÉTODO QUE INSERTA ARTICULOS EN UN PACK
+    public void insertArtPack(int id){
+        Conexion conexion = new Conexion();
+        
+        try{
+            Connection conn = conexion.getConnection();
+            Statement stmt = conn.createStatement();
+            
+            String consulta = "INSERT INTO pack_has_articulo (PCK_ID_PACK,ART_ID_ARTICULO,CANTIDAD) VALUES ("
+                    + ""
+                    + ""
+                    + ");";
+            
+        }catch(Exception err)
+        {
+            System.out.println("ERROR EN EL METODO INSERTAR ARTICULOS EN PACK "+err.getMessage());
+        }
+    }
 }
