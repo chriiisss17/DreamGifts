@@ -17,11 +17,12 @@ import model.Pack;
  */
 public class ControllerPack {
     //MÉTODO QUE CREA UN PACK
-    public void createPack(Pack pack, Object listIdArticulo)
+    public void createPack(Pack pack, ArrayList listIdArticulo)
     {
         Conexion conexion = new Conexion();
         try{
-            /*Connection conn = conexion.getConnection();
+            
+            Connection conn = conexion.getConnection();
             Statement stmt = conn.createStatement();
             
             String consulta = "INSERT INTO PACK (PCK_NOMBRE,PCK_COSTO,PCK_STOCK,PCK_ESTADO) VALUES ("
@@ -34,9 +35,7 @@ public class ControllerPack {
             System.out.println("Consulta a ejecutar "+consulta);
             stmt.executeUpdate(consulta);
             System.out.println("Consulta ejecutada correctamente");
-            */
             
-            System.out.println(listIdArticulo);
         }catch(Exception err)
         {
             System.out.println("ERROR EN EL METODO CREAR PACK "+err.getMessage());

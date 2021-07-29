@@ -13,6 +13,7 @@ import controller.Controller_usuarios;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
@@ -21,6 +22,7 @@ import model.Articulo;
 import model.Banco;
 import model.Comuna;
 import model.Pack;
+import model.Pack_has_articulo;
 import model.RRSS;
 import model.Usuario;
 /**
@@ -2256,17 +2258,25 @@ public class Ventana extends javax.swing.JFrame {
                 pk.setPck_stock(1);
                 pk.setPck_estado(true);
                 DefaultTableModel tableIsSelected = (DefaultTableModel) tbl_articuloPackSelect.getModel();
-                List<Object> listIdArticulos = new ArrayList<Object>();
+                ArrayList<Object> listPckArticulo = new ArrayList<>();
+                
+                
                 for(int i=0;i<tableIsSelected.getRowCount();i++)
                 {
-                    Object[] fila={
-                       tableIsSelected.getValueAt(i, 0) 
-                      ,tableIsSelected.getValueAt(i, 2)
-                    };
-                    listIdArticulos.add(fila);
+                    
+                    List list = new ArrayList();
+                    list.add(tableIsSelected.getValueAt(i, 0));
+                    list.add(tableIsSelected.getValueAt(i, 2));
+                    
+                    listPckArticulo.add(list);
+                    
+                    
                 }
+                
+                ctrPk.createPack(pk, listPckArticulo);
+                
                // System.out.println("lista de id: "+listIdArticulos);
-                ctrPk.createPack(pk,listIdArticulos);
+                //ctrPk.createPack(pk,listIdArticulos);
                 //JOptionPane.showMessageDialog(rootPane, "Pack almacenado correctamente");
             }
         }catch(Exception err)
