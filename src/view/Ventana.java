@@ -230,9 +230,9 @@ public class Ventana extends javax.swing.JFrame {
         tbl_articuloPack = new javax.swing.JTable();
         jPanel23 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        tbl_usuario1 = new javax.swing.JTable();
+        tbl_pack = new javax.swing.JTable();
         jLabel23 = new javax.swing.JLabel();
-        txt_buscarUser1 = new javax.swing.JTextField();
+        txt_buscarPack = new javax.swing.JTextField();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         searchUsuario1 = new javax.swing.JLabel();
@@ -1507,7 +1507,7 @@ public class Ventana extends javax.swing.JFrame {
 
         jPanel23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        tbl_usuario1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_pack.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1533,7 +1533,7 @@ public class Ventana extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane6.setViewportView(tbl_usuario1);
+        jScrollPane6.setViewportView(tbl_pack);
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
@@ -1550,10 +1550,10 @@ public class Ventana extends javax.swing.JFrame {
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("Tabla Packs");
 
-        txt_buscarUser1.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
-        txt_buscarUser1.setForeground(new java.awt.Color(102, 102, 102));
-        txt_buscarUser1.setText(" search");
-        txt_buscarUser1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txt_buscarPack.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        txt_buscarPack.setForeground(new java.awt.Color(102, 102, 102));
+        txt_buscarPack.setText(" search");
+        txt_buscarPack.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton10.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jButton10.setText("Editar");
@@ -1600,7 +1600,7 @@ public class Ventana extends javax.swing.JFrame {
                                 .addGap(71, 71, 71)
                                 .addComponent(searchUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_buscarUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txt_buscarPack, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jp_packLayout.createSequentialGroup()
                                 .addGap(20, 20, 20)
                                 .addGroup(jp_packLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1622,7 +1622,7 @@ public class Ventana extends javax.swing.JFrame {
                     .addGroup(jp_packLayout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addGroup(jp_packLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txt_buscarUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_buscarPack, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(searchUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(16, 16, 16)))
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2238,6 +2238,30 @@ public class Ventana extends javax.swing.JFrame {
 
     private void searchUsuario1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchUsuario1MouseClicked
         // TODO add your handling code here:
+        ControllerPack ctrPk = new ControllerPack();
+        ArrayList<Pack> listPack = new ArrayList<>();
+        String name=txt_buscarPack.getText();
+        DefaultTableModel tablePack = (DefaultTableModel)tbl_pack.getModel();
+        tablePack.setRowCount(0);
+        try{
+            
+            listPack=ctrPk.listPack(name);
+            for(Pack pk: listPack){
+                Object[] fila={
+                  pk.getPck_id_pack(),
+                  pk.getPck_nombre(),
+                  pk.getPck_stock(),
+                  pk.isPck_estado(),
+                };
+                
+                tablePack.addRow(fila);
+            }
+            
+            
+        }catch(Exception err){
+            System.out.println("ERROR EN EL BOTON LISTAR PACKS "+err.getMessage());
+        }
+        
     }//GEN-LAST:event_searchUsuario1MouseClicked
 
     private void txt_unidadesArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_unidadesArticuloActionPerformed
@@ -2505,10 +2529,10 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JTable tbl_articuloPackSelect;
     private javax.swing.JTable tbl_banco;
     private javax.swing.JTable tbl_comuna;
+    private javax.swing.JTable tbl_pack;
     private javax.swing.JTable tbl_usuario;
-    private javax.swing.JTable tbl_usuario1;
+    private javax.swing.JTextField txt_buscarPack;
     private javax.swing.JTextField txt_buscarUser;
-    private javax.swing.JTextField txt_buscarUser1;
     private javax.swing.JTextField txt_codigoComuna;
     private javax.swing.JTextField txt_comunasRegistradas;
     private javax.swing.JTextField txt_nameusuario1;

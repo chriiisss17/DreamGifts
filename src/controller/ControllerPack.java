@@ -69,35 +69,39 @@ public class ControllerPack {
     }
     
     //MÉTODO QUE LISTA LOS PACK POR NOMBRE, SI ESTÁ VACÍO LOS TRAE TODOS
-    /*public ArrayList<Pack> listPack(String name){
+    public ArrayList<Pack> listPack(String name){
         ArrayList<Pack> listPack = new ArrayList<>();
-        Conexion conexion = new Conexion();
-        
-        try{
-            
-        }catch(Exception err)
-        {
-            System.out.println("ERROR EN EL MÉTODO LISTAR PACKS "+err.getMessage());
-        }
-        
-    }*/
-    
-    //MÉTODO QUE INSERTA ARTICULOS EN UN PACK
-    public void insertArtPack(int id){
         Conexion conexion = new Conexion();
         
         try{
             Connection conn = conexion.getConnection();
             Statement stmt = conn.createStatement();
             
-            String consulta = "INSERT INTO pack_has_articulo (PCK_ID_PACK,ART_ID_ARTICULO,CANTIDAD) VALUES ("
-                    + ""
-                    + ""
-                    + ");";
+            String consulta = "SELECT * FROM PACK WHERE PCK_NOMBRE LIKE '"
+                    +name+ "%'"
+                    + ";";
             
+            ResultSet rs = stmt.executeQuery(consulta);
+            System.out.println("CONSULTA EJECUTADA CORRECTAMENTE");
+            
+            while(rs.next())
+            {
+                Pack pk = new Pack();
+                pk.setPck_id_pack(rs.getInt(1));
+                pk.setPck_nombre(rs.getString(2));
+                pk.setPck_costo(rs.getString(3));
+                pk.setPck_stock(rs.getInt(4));
+                pk.setPck_estado(rs.getBoolean(5));
+                
+                listPack.add(pk);
+            }
+            
+            return listPack;
         }catch(Exception err)
         {
-            System.out.println("ERROR EN EL METODO INSERTAR ARTICULOS EN PACK "+err.getMessage());
+            System.out.println("ERROR EN EL MÉTODO LISTAR PACKS "+err.getMessage());
+            return null;
         }
+        
     }
 }
