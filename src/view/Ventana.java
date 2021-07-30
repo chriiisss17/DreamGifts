@@ -2249,31 +2249,29 @@ public class Ventana extends javax.swing.JFrame {
         ControllerPack ctrPk = new ControllerPack();
         
         try{
+            
+            DefaultTableModel tableIsSelected = (DefaultTableModel) tbl_articuloPackSelect.getModel();
             if(txt_precioPack.getText().isEmpty()|| txt_precioPack.getText().isEmpty()){
                 JOptionPane.showMessageDialog(rootPane, "Los campos están vacíos");
+            }
+            else if(tableIsSelected.getValueAt(0, 0)==null||tableIsSelected.getValueAt(0, 2)==null){
+              JOptionPane.showMessageDialog(rootPane, "No hay articulos seleccionados en el pack");
             }else{
                 Pack pk = new Pack();
                 pk.setPck_nombre(txt_nombrePack.getText());
                 pk.setPck_costo(txt_precioPack.getText());
                 pk.setPck_stock(1);
                 pk.setPck_estado(true);
-                DefaultTableModel tableIsSelected = (DefaultTableModel) tbl_articuloPackSelect.getModel();
-                ArrayList<Object> listPckArticulo = new ArrayList<>();
-                
-                
+                ArrayList<Object> cantArt = new ArrayList<>();
+                ArrayList<Object> idArticulo = new ArrayList<>();
                 for(int i=0;i<tableIsSelected.getRowCount();i++)
                 {
                     
-                    List list = new ArrayList();
-                    list.add(tableIsSelected.getValueAt(i, 0));
-                    list.add(tableIsSelected.getValueAt(i, 2));
-                    
-                    listPckArticulo.add(list);
-                    
-                    
+                    cantArt.add(tableIsSelected.getValueAt(i, 0));
+                    idArticulo.add(tableIsSelected.getValueAt(i, 2));
                 }
                 
-                ctrPk.createPack(pk, listPckArticulo);
+                ctrPk.createPack(pk, cantArt,idArticulo);
                 
                // System.out.println("lista de id: "+listIdArticulos);
                 //ctrPk.createPack(pk,listIdArticulos);
@@ -2287,6 +2285,15 @@ public class Ventana extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
+        
+        txt_nombrePack.setText("");
+        txt_precioPack.setText("");
+        DefaultTableModel tableIsSelected = (DefaultTableModel) tbl_articuloPackSelect.getModel();
+        int a = tbl_articuloPackSelect.getRowCount()-1;
+        for (int i = a; i >= 0; i--) {          
+            tableIsSelected.removeRow(tableIsSelected.getRowCount()-1);
+        }
+        
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jp_packAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jp_packAncestorAdded

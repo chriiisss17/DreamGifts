@@ -7,8 +7,10 @@ package controller;
 
 import db.Conexion;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import model.Pack;
 
 /**
@@ -16,8 +18,12 @@ import model.Pack;
  * @author christian
  */
 public class ControllerPack {
+    
+    public static int idPack;
+    public static int idArticulo;
+    public static int cantidad;
     //MÉTODO QUE CREA UN PACK
-    public void createPack(Pack pack, ArrayList listIdArticulo)
+    public void createPack(Pack pack, ArrayList cantArt,ArrayList idArticulo)
     {
         Conexion conexion = new Conexion();
         try{
@@ -35,6 +41,26 @@ public class ControllerPack {
             System.out.println("Consulta a ejecutar "+consulta);
             stmt.executeUpdate(consulta);
             System.out.println("Consulta ejecutada correctamente");
+            
+            
+            String consultaIdPack = "SELECT MAX(PCK_ID_PACK) FROM PACK;";
+            ResultSet rs = stmt.executeQuery(consultaIdPack);
+            if(rs.next()){
+                idPack=rs.getInt(1);
+            }else{
+            
+            }
+            
+            for(int i=0;i<idArticulo.size();i++){
+                String insertPck = "INSERT INTO PACK_HAS_ARTICULO (PCK_ID_PACK,ART_ID_ARTICULO,CANTIDAD) VALUES("
+                        +idPack+ ","
+                        +idArticulo.get(i)+ ","
+                        +cantArt.get(i)+ ");";
+                
+                stmt.executeUpdate(insertPck);
+            }
+            
+            
             
         }catch(Exception err)
         {
