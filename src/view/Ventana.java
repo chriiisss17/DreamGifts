@@ -233,8 +233,8 @@ public class Ventana extends javax.swing.JFrame {
         tbl_pack = new javax.swing.JTable();
         jLabel23 = new javax.swing.JLabel();
         txt_buscarPack = new javax.swing.JTextField();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        btn_editarPack = new javax.swing.JButton();
+        btn_desactivarPack = new javax.swing.JButton();
         searchUsuario1 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
@@ -1519,7 +1519,7 @@ public class Ventana extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Boolean.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -1555,22 +1555,22 @@ public class Ventana extends javax.swing.JFrame {
         txt_buscarPack.setText(" search");
         txt_buscarPack.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton10.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
-        jButton10.setText("Editar");
-        jButton10.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        btn_editarPack.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        btn_editarPack.setText("Editar");
+        btn_editarPack.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_editarPack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_editarPack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                btn_editarPackActionPerformed(evt);
             }
         });
 
-        jButton11.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
-        jButton11.setText("Desactivar");
-        jButton11.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        btn_desactivarPack.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        btn_desactivarPack.setText("Desactivar");
+        btn_desactivarPack.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_desactivarPack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                btn_desactivarPackActionPerformed(evt);
             }
         });
 
@@ -1589,9 +1589,9 @@ public class Ventana extends javax.swing.JFrame {
                 .addGroup(jp_packLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_packLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_editarPack, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_desactivarPack, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jp_packLayout.createSequentialGroup()
                         .addGroup(jp_packLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jp_packLayout.createSequentialGroup()
@@ -1628,8 +1628,8 @@ public class Ventana extends javax.swing.JFrame {
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jp_packLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_editarPack, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_desactivarPack, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28))
         );
 
@@ -2228,13 +2228,28 @@ public class Ventana extends javax.swing.JFrame {
         removeSelect();
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void btn_editarPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarPackActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+        
+    }//GEN-LAST:event_btn_editarPackActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton11ActionPerformed
+    private void btn_desactivarPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_desactivarPackActionPerformed
+        int indice = tbl_pack.getSelectedRow();
+        int cod = (int)tbl_pack.getValueAt(indice, 0);
+        String action = (String)tbl_pack.getValueAt(indice, 3);
+        boolean state;
+        if(action=="Desactivado"){
+           state=false;
+        }else{
+            state=true;
+        }
+        ControllerPack ctrPk = new ControllerPack();
+        Pack pk = new Pack();
+        pk.setPck_id_pack(cod);
+        pk.setPck_estado(!state);
+        ctrPk.actionPack(pk);
+        System.out.println("ESTADO ACTUAL : "+pk.isPck_estado());
+    }//GEN-LAST:event_btn_desactivarPackActionPerformed
 
     private void searchUsuario1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchUsuario1MouseClicked
         // TODO add your handling code here:
@@ -2244,14 +2259,19 @@ public class Ventana extends javax.swing.JFrame {
         DefaultTableModel tablePack = (DefaultTableModel)tbl_pack.getModel();
         tablePack.setRowCount(0);
         try{
-            
+            String state;
             listPack=ctrPk.listPack(name);
             for(Pack pk: listPack){
+                if(pk.isPck_estado()==true){
+                    state="Activado";
+                }else{
+                    state="Desactivado";
+                }
                 Object[] fila={
                   pk.getPck_id_pack(),
                   pk.getPck_nombre(),
                   pk.getPck_stock(),
-                  pk.isPck_estado(),
+                  state,
                 };
                 
                 tablePack.addRow(fila);
@@ -2284,7 +2304,7 @@ public class Ventana extends javax.swing.JFrame {
                 Pack pk = new Pack();
                 pk.setPck_nombre(txt_nombrePack.getText());
                 pk.setPck_costo(txt_precioPack.getText());
-                pk.setPck_stock(1);
+                pk.setPck_stock(0);
                 pk.setPck_estado(true);
                 ArrayList<Object> cantArt = new ArrayList<>();
                 ArrayList<Object> idArticulo = new ArrayList<>();
@@ -2436,14 +2456,14 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JButton botonGuardarRrss;
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_desactivar;
+    private javax.swing.JButton btn_desactivarPack;
     private javax.swing.JButton btn_editar;
+    private javax.swing.JButton btn_editarPack;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_guardar2;
     private javax.swing.JButton btn_guardar3;
     private javax.swing.JTextField buscarRrss;
     private javax.swing.JTextField codigoRrss;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;

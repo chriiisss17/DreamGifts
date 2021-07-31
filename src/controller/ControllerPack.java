@@ -104,4 +104,28 @@ public class ControllerPack {
         }
         
     }
+    //MÉTODO QUE ACTIVA O DESACTIVA UN PACK
+    public void actionPack(Pack pack)
+    {
+        Conexion conexion = new Conexion();
+        
+        try{
+            Connection conn = conexion.getConnection();
+            Statement stmt = conn.createStatement();
+            
+            String consulta = "UPDATE PACK SET PCK_ESTADO ="
+                    + pack.isPck_estado()
+                    + " WHERE PCK_ID_PACK ="
+                    + pack.getPck_id_pack()
+                    + ";";
+            
+            stmt.executeUpdate(consulta);
+            System.out.println("Consulta "+consulta);
+            
+        }catch(Exception err)
+        {
+            System.out.println("ERROR EN EL MÉTODO ACTION PACK "+err.getMessage());
+        }
+        
+    }
 }

@@ -4,6 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Usuario/Documents/Projects/Java/DreamGifts/src/view/Ventana.java</file>
+            <file>file:/C:/Users/Usuario/Documents/Projects/Java/DreamGifts/src/model/Pack.java</file>
+            <file>file:/C:/Users/Usuario/Documents/Projects/Java/DreamGifts/src/controller/ControllerPack.java</file>
+            <file>file:/C:/Users/Usuario/Documents/Projects/Java/DreamGifts/src/controller/ControllerArticulo.java</file>
+            <file>file:/C:/Users/Usuario/Documents/Projects/Java/DreamGifts/src/controller/ControllerComuna.java</file>
         </group>
     </open-files>
 </project-private>
