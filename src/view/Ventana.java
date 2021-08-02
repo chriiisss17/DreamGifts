@@ -62,6 +62,15 @@ public class Ventana extends javax.swing.JFrame {
         tbl_usuario.getColumnModel().getColumn(3).setMaxWidth(0);
         tbl_usuario.getColumnModel().getColumn(3).setMinWidth(0);
         tbl_usuario.getColumnModel().getColumn(3).setPreferredWidth(0);
+        tbl_pack.getColumnModel().getColumn(4).setMaxWidth(0);
+        tbl_pack.getColumnModel().getColumn(4).setMinWidth(0);
+        tbl_pack.getColumnModel().getColumn(4).setPreferredWidth(0);
+        tbl_articuloPackSelect.getColumnModel().getColumn(2).setMaxWidth(0);
+        tbl_articuloPackSelect.getColumnModel().getColumn(2).setMinWidth(0);
+        tbl_articuloPackSelect.getColumnModel().getColumn(2).setPreferredWidth(0);
+        tbl_articuloPack.getColumnModel().getColumn(1).setMaxWidth(0);
+        tbl_articuloPack.getColumnModel().getColumn(1).setMinWidth(0);
+        tbl_articuloPack.getColumnModel().getColumn(1).setPreferredWidth(0);
         
         
     }
@@ -1509,20 +1518,20 @@ public class Ventana extends javax.swing.JFrame {
 
         tbl_pack.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Codigo Pack", "Nombre Pack", "Unidades Bodega", "Selección"
+                "Codigo Pack", "Nombre Pack", "Unidades Bodega", "Selección", "Precio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -2230,7 +2239,13 @@ public class Ventana extends javax.swing.JFrame {
 
     private void btn_editarPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarPackActionPerformed
         // TODO add your handling code here:
-        
+        DefaultTableModel tablePack = (DefaultTableModel)tbl_pack.getModel();
+        int indice = tbl_pack.getSelectedRow();
+        int cod =(int)tbl_pack.getValueAt(indice, 0);
+        String name = (String)tbl_pack.getValueAt(indice, 1);
+        String price = (String)tbl_pack.getValueAt(indice, 4);
+        txt_nombrePack.setText(name);
+        txt_precioPack.setText(price);
     }//GEN-LAST:event_btn_editarPackActionPerformed
 
     private void btn_desactivarPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_desactivarPackActionPerformed
@@ -2272,6 +2287,7 @@ public class Ventana extends javax.swing.JFrame {
                   pk.getPck_nombre(),
                   pk.getPck_stock(),
                   state,
+                  pk.getPck_costo()
                 };
                 
                 tablePack.addRow(fila);
@@ -2317,9 +2333,14 @@ public class Ventana extends javax.swing.JFrame {
                 
                 ctrPk.createPack(pk, cantArt,idArticulo);
                 
-               // System.out.println("lista de id: "+listIdArticulos);
-                //ctrPk.createPack(pk,listIdArticulos);
-                //JOptionPane.showMessageDialog(rootPane, "Pack almacenado correctamente");
+                txt_nombrePack.setText("");
+                txt_precioPack.setText("");
+                int a = tbl_articuloPackSelect.getRowCount()-1;
+                for (int i = a; i >= 0; i--) {          
+                    tableIsSelected.removeRow(tableIsSelected.getRowCount()-1);
+                }
+                rowArticulo=0;
+                JOptionPane.showMessageDialog(rootPane, "Pack almacenado correctamente");
             }
         }catch(Exception err)
         {
@@ -2337,6 +2358,7 @@ public class Ventana extends javax.swing.JFrame {
         for (int i = a; i >= 0; i--) {          
             tableIsSelected.removeRow(tableIsSelected.getRowCount()-1);
         }
+        rowArticulo=0;
         
     }//GEN-LAST:event_jButton9ActionPerformed
 

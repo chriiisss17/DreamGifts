@@ -2251,11 +2251,12 @@
                         <Component class="javax.swing.JTable" name="tbl_pack">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="4" rowCount="4">
+                              <Table columnCount="5" rowCount="4">
                                 <Column editable="false" title="Codigo Pack" type="java.lang.Integer"/>
                                 <Column editable="false" title="Nombre Pack" type="java.lang.Object"/>
                                 <Column editable="false" title="Unidades Bodega" type="java.lang.Integer"/>
                                 <Column editable="false" title="Selecci&#xf3;n" type="java.lang.String"/>
+                                <Column editable="false" title="Precio" type="java.lang.String"/>
                               </Table>
                             </Property>
                           </Properties>

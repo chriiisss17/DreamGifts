@@ -128,4 +128,57 @@ public class ControllerPack {
         }
         
     }
+    
+    public void updatePack(int cod,String name,String price)
+    {
+        Conexion conexion = new Conexion();
+        try{
+            Connection conn = conexion.getConnection();
+            Statement stmt = conn.createStatement();
+            
+            String consulta = "UPDATE PACK SET PCK_NOMBRE='"
+                    + name
+                    + "',"
+                    + "PCK_COSTO='"
+                    + price
+                    + "' "
+                    + "WHERE PCK_ID_PACK="
+                    + cod
+                    + ";";
+            
+            stmt.executeUpdate(consulta);
+            
+            System.out.println("PACK ACTUALIZADO CORRECTAMENTE");
+            
+        }catch(Exception err){
+            System.out.println("ERROR EN EL MÉTODO UPDATE PACK "+err.getMessage());
+        }
+    }
+    public void searchPack(int cod)
+    {
+        Conexion conexion = new Conexion();
+        try
+        {
+            Connection conn = conexion.getConnection();
+            Statement stmt = conn.createStatement();
+            
+           String consulta = "SELECT PCK_ID_PACK FROM PACK WHERE "
+                   + "id="+ cod +";";
+           System.out.println("Consulta a ejecutar: "+consulta);
+            ResultSet rt = stmt.executeQuery(consulta);
+            System.out.println("Consulta ejecutada correctamente");
+            
+            if(rt.next())
+            {
+                String consulta2 = "";
+            }else{
+                
+            }
+           
+        }catch(Exception err)
+        {
+            System.out.println("ERROR EN EL METODO BUSCAR PACK  "+err.getMessage());
+        }
+    }
+   
 }
