@@ -180,5 +180,25 @@ public class ControllerPack {
             System.out.println("ERROR EN EL METODO BUSCAR PACK  "+err.getMessage());
         }
     }
+    
+    //MÉTODO QUE LISTA LOS PACK POR NOMBRE, SI ESTÁ VACÍO LOS TRAE TODOS
+    public ArrayList<Pack> listPack(ArrayList fechaInit, ArrayList fechaFn){
+        ArrayList<Pack> listPack = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        
+        try{
+            Connection conn = conexion.getConnection();
+            Statement stmt = conn.createStatement();
+            
+            
+            
+            return listPack;
+        }catch(Exception err)
+        {
+            System.out.println("ERROR EN EL MÉTODO LISTAR PACKS "+err.getMessage());
+            return null;
+        }
+        
+    }
    
 }
