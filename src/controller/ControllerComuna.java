@@ -4,6 +4,7 @@ import db.Conexion;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import model.Comuna;
 /**
  *
@@ -145,6 +146,73 @@ public class ControllerComuna {
         }catch(Exception err)
         {
             System.out.println("ERROR EN EL MÉTODO DESACTIVAR COMUNA "+err.getMessage());
+        }
+    }
+    //MÉTODO QUE LISTA LOS PACK POR COMUNA
+    public ArrayList<Object> listComuna(ArrayList fechaInit, ArrayList fechaFn){
+        ArrayList<Object> listPack = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        
+        try{
+            Connection conn = conexion.getConnection();
+            Statement stmt = conn.createStatement();
+            
+            String day=(String) fechaInit.get(1);
+            String month=(String) fechaInit.get(2);
+            String year=(String) fechaInit.get(3);
+            
+            String day2=(String) fechaFn.get(1);
+            String month2=(String) fechaFn.get(2);
+            String year2=(String) fechaFn.get(3);
+            
+            
+            return listPack;
+        }catch(Exception err)
+        {
+            System.out.println("ERROR EN EL MÉTODO LISTAR PACKS "+err.getMessage());
+            return null;
+        }
+        
+    }
+    
+    //MÉTODO QUE OBTIENE LAS COMUNAS
+    public List listComuna(){
+        
+        Conexion conexion = new Conexion();
+        //ArrayList<Object> listComuna= new ArrayList<>();
+        
+
+        List<List<String>> ejemploLista = new ArrayList<List<String>>();
+        
+        try{
+            Connection conn = conexion.getConnection();
+            Statement stmt = conn.createStatement();
+            
+            String consulta = "SELECT ID FROM COMUNA;";
+            
+            ResultSet rs= stmt.executeQuery(consulta);
+            
+            for(int i =0;i<2;i++)
+            {
+                ejemploLista.add(new ArrayList<String>());
+            }
+            while(rs.next()){
+                ejemploLista.get(0).add(Integer.toString(rs.getInt(1)));
+            }
+            
+            String consulta2 = "SELECT NAME FROM COMUNA;";
+            
+            rs = stmt.executeQuery(consulta2);
+            
+            while(rs.next()){
+                ejemploLista.get(1).add(rs.getString(1));
+            }
+            
+            return ejemploLista;
+            
+        }catch(Exception err){
+            System.out.println("ERROR EN EL MÉTODO QUE OBTIENE LAS COMUNAS "+err.getMessage());
+            return null;
         }
     }
 }

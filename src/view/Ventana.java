@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Articulo;
@@ -1849,6 +1850,21 @@ public class Ventana extends javax.swing.JFrame {
         jLabel29.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel29.setText("Comuna");
 
+        cmb_comunas.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                cmb_comunasAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        cmb_comunas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_comunasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
         jPanel26.setLayout(jPanel26Layout);
         jPanel26Layout.setHorizontalGroup(
@@ -2795,32 +2811,44 @@ public class Ventana extends javax.swing.JFrame {
             String year= Integer.toString(jdate_desdeComuna.getCalendar().get(Calendar.YEAR));
 
             ArrayList<Object> fechaInit=new ArrayList<>();
-            Object[] fila={
-                day,month,year
-            };
-
-            fechaInit.add(fila);
+            
+            fechaInit.add(day);
+            fechaInit.add(month);
+            fechaInit.add(year);
 
             String day2= Integer.toString(jdate_hastaComuna.getCalendar().get(Calendar.DAY_OF_MONTH)); 
             String month2= Integer.toString(jdate_hastaComuna.getCalendar().get(Calendar.MONTH));
             String year2= Integer.toString(jdate_hastaComuna.getCalendar().get(Calendar.YEAR));
 
             ArrayList<Object> fechaFn=new ArrayList<>();
-            Object[ ] fila2={
-                day,month,year
-            };
-
-            fechaFn.add(fila2);
-            ControllerPack ctrPack = new ControllerPack();
+            fechaFn.add(day2);
+            fechaFn.add(month2);
+            fechaFn.add(year2);
+            
+            ControllerComuna ctrComuna = new ControllerComuna();
+            ctrComuna.listComuna(fechaInit, fechaFn);
             
             
-            if(fechaInit.isEmpty()||fechaFn.isEmpty()){
-                JOptionPane.showMessageDialog(rootPane, "Debe seleccionar ambas fechas");
-            }else{
-                ctrPack.listPack(fechaInit, fechaFn);
-            }
-            System.out.println("PRUEBA: "+fechaInit.size());
+            
     }//GEN-LAST:event_btn_searchCmActionPerformed
+
+    private void cmb_comunasAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cmb_comunasAncestorAdded
+        // TODO add your handling code here:
+        ControllerComuna ctrComuna = new ControllerComuna();
+        List<List<String>> list = new ArrayList<List<String>>();
+        DefaultComboBoxModel comboBox = (DefaultComboBoxModel)cmb_comunas.getModel();
+        
+        list=ctrComuna.listComuna();
+        
+        for(int i=0;i<list.get(0).size();i++){
+            comboBox.addElement(list.get(1).get(i));
+        }
+        
+    }//GEN-LAST:event_cmb_comunasAncestorAdded
+
+    private void cmb_comunasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_comunasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_comunasActionPerformed
     //METÓDO QUE VALIDA QUE SE INGRESEN 2 NUMEROS
     private static boolean validarCod(String datos){
         return datos.matches("[0-9][1.2]");

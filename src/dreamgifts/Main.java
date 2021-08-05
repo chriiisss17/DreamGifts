@@ -2,6 +2,8 @@ package dreamgifts;
 
 import db.Conexion;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import view.Ventana;
 import view.Ventana_login;
 
@@ -27,6 +29,7 @@ public class Main {
       }else{
           System.out.println("Problema en la conexión");
       }
+    
     }
     
 }
