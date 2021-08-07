@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 import java.util.stream.Stream;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -2770,38 +2771,28 @@ public class Ventana extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        try{
-            String day= Integer.toString(jdate_desde.getCalendar().get(Calendar.DAY_OF_MONTH)); 
-            String month= Integer.toString(jdate_desde.getCalendar().get(Calendar.MONTH));
-            String year= Integer.toString(jdate_desde.getCalendar().get(Calendar.YEAR));
+        String day= Integer.toString(jdate_desde.getCalendar().get(Calendar.DAY_OF_MONTH)); 
+        String month= Integer.toString(jdate_desde.getCalendar().get(Calendar.MONTH));
+        String year= Integer.toString(jdate_desde.getCalendar().get(Calendar.YEAR));
 
-            ArrayList<Object> fechaInit=new ArrayList<>();
-            Object[] fila={
-                day,month,year
-            };
+        ArrayList<Object> fechaInit=new ArrayList<>();
+        Object[] fila={
+            day,month,year
+        };
 
-            fechaInit.add(fila);
+        fechaInit.add(fila);
 
-            String day2= Integer.toString(jdate_desde.getCalendar().get(Calendar.DAY_OF_MONTH)); 
-            String month2= Integer.toString(jdate_desde.getCalendar().get(Calendar.MONTH));
-            String year2= Integer.toString(jdate_desde.getCalendar().get(Calendar.YEAR));
+        String day2= Integer.toString(jdate_desde.getCalendar().get(Calendar.DAY_OF_MONTH)); 
+        String month2= Integer.toString(jdate_desde.getCalendar().get(Calendar.MONTH));
+        String year2= Integer.toString(jdate_desde.getCalendar().get(Calendar.YEAR));
 
-            ArrayList<Object> fechaFn=new ArrayList<>();
-            Object[ ] fila2={
-                day,month,year
-            };
+        ArrayList<Object> fechaFn=new ArrayList<>();
+        Object[ ] fila2={
+            day,month,year
+        };
 
-            fechaFn.add(fila2);
-            ControllerPack ctrPack = new ControllerPack();
-            if(fechaInit.size()==0||fechaFn.size()==0){
-                JOptionPane.showMessageDialog(rootPane, "Debe seleccionar ambas fechas");
-            }else{
-                
-                ctrPack.listPack(fechaInit, fechaFn);
-            }
-            }catch(Exception err){
-                System.out.println("ERROR EN EL BOTON BUSCAR INFORME PACK "+err.getMessage());
-            }
+        fechaFn.add(fila2);
+        ControllerPack ctrPack = new ControllerPack();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btn_searchCmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchCmActionPerformed
@@ -2825,9 +2816,26 @@ public class Ventana extends javax.swing.JFrame {
             fechaFn.add(month2);
             fechaFn.add(year2);
             
-            ControllerComuna ctrComuna = new ControllerComuna();
-            ctrComuna.listComuna(fechaInit, fechaFn);
+            ControllerPack ctrPack = new ControllerPack();
+            //ctrComuna.listComuna(fechaInit, fechaFn);
             
+            DefaultComboBoxModel cmBox = (DefaultComboBoxModel)cmb_comunas.getModel();
+            String comuna =(String) cmBox.getSelectedItem();
+            
+            ArrayList<Object> listPackVenta = new ArrayList<>();
+            
+            listPackVenta= ctrPack.listPack(fechaInit, fechaFn, comuna);
+            
+            DefaultTableModel tableInformeComunas = (DefaultTableModel)tbl_informePackComuna.getModel();
+            tableInformeComunas.setRowCount(0);
+            
+                Object[] fila={
+                    listPackVenta.get(0),
+                    listPackVenta.get(1),
+                    listPackVenta.get(2),
+                    listPackVenta.get(3),
+                };
+                tableInformeComunas.addRow(fila);
             
             
     }//GEN-LAST:event_btn_searchCmActionPerformed

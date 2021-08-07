@@ -182,15 +182,44 @@ public class ControllerPack {
     }
     
     //MÉTODO QUE LISTA LOS PACK POR NOMBRE, SI ESTÁ VACÍO LOS TRAE TODOS
-    public ArrayList<Pack> listPack(ArrayList fechaInit, ArrayList fechaFn){
-        ArrayList<Pack> listPack = new ArrayList<>();
+    public ArrayList<Object> listPack(ArrayList fechaInit, ArrayList fechaFn,String comuna){
+        ArrayList<Object> listPack = new ArrayList<>();
         Conexion conexion = new Conexion();
         
         try{
             Connection conn = conexion.getConnection();
             Statement stmt = conn.createStatement();
             
+            String consulta = "SELECT C.NAME,P.PCK_NOMBRE,COUNT(*),V.VTA_TOTAL FROM `venta` V " +
+                              "JOIN COMUNA C ON C.id = V.COM_ID_COMUNA " +
+                              "JOIN PACK P ON P.PCK_ID_PACK = V.PCK_ID_PACK " +
+                              "JOIN estado_venta EV ON EV.EST_ID_ESTADO = V.EST_ID_ESTADO " +
+                              "WHERE V.EST_ID_ESTADO = 1 " 
+                            /*+ "AND V.VTA_FECHA_VENTA BETWEEN '"
+                    + fechaInit.get(2)
+                    + fechaInit.get(1)
+                    + fechaInit.get(0)
+                    + "' AND "
+                    + "'"
+                    + fechaFn.get(2)
+                    + fechaFn.get(1)
+                    + fechaFn.get(0)
+                    */+ " AND "
+                    + "C.NAME = '"
+                    + comuna
+                    + "'"
+                    + " GROUP BY C.name" +
+                    ";";
             
+            ResultSet rs = stmt.executeQuery(consulta);
+            
+            while(rs.next()){
+                listPack.add(rs.getString(1));
+                listPack.add(rs.getString(2));
+                listPack.add(rs.getInt(3));
+                listPack.add(rs.getString(4));
+            }
+                    
             
             return listPack;
         }catch(Exception err)
