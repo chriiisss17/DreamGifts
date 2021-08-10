@@ -211,7 +211,7 @@ public class ControllerPack {
                     + "'"
                     + " GROUP BY P.PCK_ID_PACK" +
                     ";";
-            System.out.println(""+consulta);
+            
             ResultSet rs = stmt.executeQuery(consulta);
             
             

@@ -12,6 +12,10 @@ import controller.ControllerRrss;
 import controller.Controller_usuarios;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -28,6 +32,11 @@ import model.Pack;
 import model.Pack_has_articulo;
 import model.RRSS;
 import model.Usuario;
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  *
  * @author christian
@@ -1956,6 +1965,11 @@ public class Ventana extends javax.swing.JFrame {
         jLabel27.setText("Total");
 
         jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/excel.png"))); // NOI18N
+        jLabel28.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel28MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
@@ -2830,7 +2844,6 @@ public class Ventana extends javax.swing.JFrame {
             tableInformeComunas.setRowCount(0);
             
             int rg=listPackVenta.get(0).size();
-            int column=tableInformeComunas.getColumnCount();
             
             for (int i = 0; i < rg; i++) {
                 Object[] fila={
@@ -2863,6 +2876,40 @@ public class Ventana extends javax.swing.JFrame {
     private void cmb_comunasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_comunasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmb_comunasActionPerformed
+
+    private void jLabel28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseClicked
+
+        try{
+            Workbook wb = new XSSFWorkbook();
+            org.apache.poi.ss.usermodel.Sheet sheet =wb.createSheet();
+            Row rowCol = (Row) sheet.createRow(0);
+            for(int i=0;i<tbl_informePackComuna.getColumnCount();i++)
+            {
+                Cell cell = rowCol.createCell(i);
+                cell.setCellValue(tbl_informePackComuna.getColumnName(i));
+            }
+            for (int i = 0; i < tbl_informePackComuna.getRowCount(); i++) {
+                Row row = (Row) sheet.createRow(i+1);
+                for(int k=0;k<tbl_informePackComuna.getColumnCount();k++)
+                {
+                    Cell cell = row.createCell(k);
+                    if(tbl_informePackComuna.getValueAt(i, k)!=null){
+                        cell.setCellValue(tbl_informePackComuna.getValueAt(i, k).toString());
+                    }
+                }
+                
+        }
+            FileOutputStream out = new FileOutputStream(new File("InformePorComuna.xlsx"));
+            wb.write(out);
+            wb.close();
+            out.close();
+            System.out.println(out);
+        }catch(FileNotFoundException e){
+            System.out.println(e);
+        }catch(IOException io){
+            System.out.println(io);
+        }
+    }//GEN-LAST:event_jLabel28MouseClicked
     //METÓDO QUE VALIDA QUE SE INGRESEN 2 NUMEROS
     private static boolean validarCod(String datos){
         return datos.matches("[0-9][1.2]");
