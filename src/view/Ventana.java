@@ -2822,20 +2822,26 @@ public class Ventana extends javax.swing.JFrame {
             DefaultComboBoxModel cmBox = (DefaultComboBoxModel)cmb_comunas.getModel();
             String comuna =(String) cmBox.getSelectedItem();
             
-            ArrayList<Object> listPackVenta = new ArrayList<>();
+            List<List<Object>> listPackVenta = new ArrayList<List<Object>>();
             
             listPackVenta= ctrPack.listPack(fechaInit, fechaFn, comuna);
             
             DefaultTableModel tableInformeComunas = (DefaultTableModel)tbl_informePackComuna.getModel();
             tableInformeComunas.setRowCount(0);
             
+            int rg=listPackVenta.get(0).size();
+            int column=tableInformeComunas.getColumnCount();
+            
+            for (int i = 0; i < rg; i++) {
                 Object[] fila={
-                    listPackVenta.get(0),
-                    listPackVenta.get(1),
-                    listPackVenta.get(2),
-                    listPackVenta.get(3),
+                  listPackVenta.get(0).get(i),
+                    listPackVenta.get(1).get(i),
+                    listPackVenta.get(2).get(i),
+                    "$"+listPackVenta.get(3).get(i),
                 };
-                tableInformeComunas.addRow(fila);
+            tableInformeComunas.addRow(fila);
+        }
+        
             
             
     }//GEN-LAST:event_btn_searchCmActionPerformed

@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import model.Pack;
 
 /**
@@ -182,8 +183,8 @@ public class ControllerPack {
     }
     
     //MÉTODO QUE LISTA LOS PACK POR NOMBRE, SI ESTÁ VACÍO LOS TRAE TODOS
-    public ArrayList<Object> listPack(ArrayList fechaInit, ArrayList fechaFn,String comuna){
-        ArrayList<Object> listPack = new ArrayList<>();
+    public List listPack(ArrayList fechaInit, ArrayList fechaFn,String comuna){
+       List<List<Object>> listPack = new ArrayList<List<Object>>();
         Conexion conexion = new Conexion();
         
         try{
@@ -195,29 +196,35 @@ public class ControllerPack {
                               "JOIN PACK P ON P.PCK_ID_PACK = V.PCK_ID_PACK " +
                               "JOIN estado_venta EV ON EV.EST_ID_ESTADO = V.EST_ID_ESTADO " +
                               "WHERE V.EST_ID_ESTADO = 1 " 
-                            /*+ "AND V.VTA_FECHA_VENTA BETWEEN '"
-                    + fechaInit.get(2)
-                    + fechaInit.get(1)
+                            + "AND V.VTA_FECHA_VENTA BETWEEN '"
+                    + fechaInit.get(2)+ "-"
+                    + fechaInit.get(1)+"-"
                     + fechaInit.get(0)
                     + "' AND "
                     + "'"
-                    + fechaFn.get(2)
-                    + fechaFn.get(1)
+                    + fechaFn.get(2)+"-"
+                    + fechaFn.get(1)+"-"
                     + fechaFn.get(0)
-                    */+ " AND "
+                    + "' AND "
                     + "C.NAME = '"
                     + comuna
                     + "'"
-                    + " GROUP BY C.name" +
+                    + " GROUP BY P.PCK_ID_PACK" +
                     ";";
-            
+            System.out.println(""+consulta);
             ResultSet rs = stmt.executeQuery(consulta);
             
+            
+            for (int i = 0; i < 4; i++) {
+                listPack.add(new ArrayList());
+            }
+            
+            
             while(rs.next()){
-                listPack.add(rs.getString(1));
-                listPack.add(rs.getString(2));
-                listPack.add(rs.getInt(3));
-                listPack.add(rs.getString(4));
+                listPack.get(0).add(rs.getString(1));
+                listPack.get(1).add(rs.getString(2));
+                listPack.get(2).add(rs.getString(3));
+                listPack.get(3).add(rs.getString(4));
             }
                     
             
