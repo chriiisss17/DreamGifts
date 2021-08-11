@@ -2853,6 +2853,16 @@ public class Ventana extends javax.swing.JFrame {
                     "$"+listPackVenta.get(3).get(i),
                 };
             tableInformeComunas.addRow(fila);
+            int cant=0;
+            int total=0;
+                for (int j = 0; j < tbl_informePackComuna.getRowCount(); j++) {
+                    cant+=Integer.parseInt((String)tbl_informePackComuna.getValueAt(j, 2));
+                    String price= (String)tbl_informePackComuna.getValueAt(j, 3);
+                    total+=Integer.parseInt((String)price.replaceAll("\\$", ""));
+                }
+            txt_cantidadPackComuna.setText(Integer.toString(cant));
+            txt_totalPackComuna.setText("$" +Integer.toString(total));
+            
         }
         
             
@@ -2899,11 +2909,27 @@ public class Ventana extends javax.swing.JFrame {
                 }
                 
         }
+            Row rwTotal=(Row)sheet.createRow(tbl_informePackComuna.getRowCount()+1);
+            Cell cell = rwTotal.createCell(tbl_informePackComuna.getRowCount());
+            cell.setCellValue("Total Cantidad");
+            Row rwTotal2=(Row)sheet.createRow(tbl_informePackComuna.getRowCount()+2);
+            Cell cell2 = rwTotal2.createCell(tbl_informePackComuna.getRowCount());
+            cell2.setCellValue(txt_cantidadPackComuna.getText());
+            
+            rwTotal=(Row)sheet.createRow(tbl_informePackComuna.getRowCount()+3);
+            //cell mueve de izquierda a derecha 
+            cell=rwTotal.createCell(tbl_informePackComuna.getRowCount()+1);
+            cell.setCellValue("Total precio");
+            rwTotal=(Row)sheet.createRow(tbl_informePackComuna.getRowCount()+4);
+            cell=rwTotal.createCell(tbl_informePackComuna.getRowCount()+1);
+            cell.setCellValue(txt_totalPackComuna.getText());
+            
             FileOutputStream out = new FileOutputStream(new File("InformePorComuna.xlsx"));
             wb.write(out);
             wb.close();
             out.close();
             System.out.println(out);
+            JOptionPane.showMessageDialog(rootPane, "Informe exportado");
         }catch(FileNotFoundException e){
             System.out.println(e);
         }catch(IOException io){
