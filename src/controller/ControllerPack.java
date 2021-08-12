@@ -236,5 +236,49 @@ public class ControllerPack {
         }
         
     }
+    public List listPack(String fechaInit, String fechaFn){
+       List<List<Object>> listPack = new ArrayList<List<Object>>();
+        Conexion conexion = new Conexion();
+        
+        try{
+            Connection conn = conexion.getConnection();
+            Statement stmt = conn.createStatement();
+            
+            String consulta = "SELECT P.PCK_NOMBRE,COUNT(*),V.VTA_TOTAL FROM `venta` V " +
+                              "JOIN PACK P ON P.PCK_ID_PACK = V.PCK_ID_PACK " +
+                              "JOIN estado_venta EV ON EV.EST_ID_ESTADO = V.EST_ID_ESTADO " +
+                              
+                              "WHERE V.VTA_FECHA_VENTA BETWEEN '"
+                    + fechaInit
+                    + "' AND "
+                    + "'"
+                    + fechaFn
+                    + "'"
+                    + " GROUP BY P.PCK_ID_PACK" +
+                    ";";
+            System.out.println(consulta);
+            ResultSet rs = stmt.executeQuery(consulta);
+            
+            
+            for (int i = 0; i < 3; i++) {
+                listPack.add(new ArrayList());
+            }
+            
+            
+            while(rs.next()){
+                listPack.get(0).add(rs.getString(1));
+                listPack.get(1).add(rs.getString(2));
+                listPack.get(2).add(rs.getString(3));
+            }
+                    
+            
+            return listPack;
+        }catch(Exception err)
+        {
+            System.out.println("ERROR EN EL MÉTODO LISTAR PACKS "+err.getMessage());
+            return null;
+        }
+        
+    }
    
 }

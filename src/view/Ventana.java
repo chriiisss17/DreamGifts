@@ -16,8 +16,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
@@ -261,12 +263,12 @@ public class Ventana extends javax.swing.JFrame {
         jPanel21 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jdate_desde = new com.toedter.calendar.JDateChooser();
-        jdate_hasta = new com.toedter.calendar.JDateChooser();
-        jButton1 = new javax.swing.JButton();
+        jdate_desdePack = new com.toedter.calendar.JDateChooser();
+        jdate_hastaPack = new com.toedter.calendar.JDateChooser();
+        btn_buscarInformePack = new javax.swing.JButton();
         jPanel24 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_informePack = new javax.swing.JTable();
         jLabel20 = new javax.swing.JLabel();
         txt_cantidadPack = new javax.swing.JTextField();
         txt_totalPack = new javax.swing.JTextField();
@@ -1709,10 +1711,10 @@ public class Ventana extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel22.setText("Hasta");
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_buscarInformePack.setText("Buscar");
+        btn_buscarInformePack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_buscarInformePackActionPerformed(evt);
             }
         });
 
@@ -1727,10 +1729,10 @@ public class Ventana extends javax.swing.JFrame {
                     .addComponent(jLabel22))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jdate_desde, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                    .addComponent(jdate_hasta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jdate_desdePack, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                    .addComponent(jdate_hastaPack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_buscarInformePack, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
@@ -1739,19 +1741,19 @@ public class Ventana extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel21)
-                    .addComponent(jdate_desde, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jdate_desdePack, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel22)
-                        .addComponent(jdate_hasta, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jdate_hastaPack, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_buscarInformePack, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37))
         );
 
         jPanel24.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_informePack.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -1777,7 +1779,7 @@ public class Ventana extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(jTable1);
+        jScrollPane4.setViewportView(tbl_informePack);
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
         jPanel24.setLayout(jPanel24Layout);
@@ -2783,31 +2785,47 @@ public class Ventana extends javax.swing.JFrame {
         emptyRowArticulo();
     }//GEN-LAST:event_jl_buttonBackMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_buscarInformePackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarInformePackActionPerformed
         // TODO add your handling code here:
-        String day= Integer.toString(jdate_desde.getCalendar().get(Calendar.DAY_OF_MONTH)); 
-        String month= Integer.toString(jdate_desde.getCalendar().get(Calendar.MONTH));
-        String year= Integer.toString(jdate_desde.getCalendar().get(Calendar.YEAR));
-
-        ArrayList<Object> fechaInit=new ArrayList<>();
-        Object[] fila={
-            day,month,year
-        };
-
-        fechaInit.add(fila);
-
-        String day2= Integer.toString(jdate_desde.getCalendar().get(Calendar.DAY_OF_MONTH)); 
-        String month2= Integer.toString(jdate_desde.getCalendar().get(Calendar.MONTH));
-        String year2= Integer.toString(jdate_desde.getCalendar().get(Calendar.YEAR));
-
-        ArrayList<Object> fechaFn=new ArrayList<>();
-        Object[ ] fila2={
-            day,month,year
-        };
-
-        fechaFn.add(fila2);
+        
+        Date dateDesde = jdate_desdePack.getDate();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-mm-dd");
+        String des1 = formato.format(dateDesde);
+        
+        Date dateHasta = jdate_hastaPack.getDate();
+        SimpleDateFormat formato2 = new SimpleDateFormat("yyyy-mm-dd");
+        String des2 = formato.format(dateHasta);
+        
+        
         ControllerPack ctrPack = new ControllerPack();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        List<List<Object>> listPackVenta = new ArrayList<List<Object>>();
+        listPackVenta= ctrPack.listPack(des1, des2);
+        
+        DefaultTableModel tableInformePack = (DefaultTableModel)tbl_informePack.getModel();
+            tableInformePack.setRowCount(0);
+            
+            int rg=listPackVenta.get(0).size();
+            
+            for (int i = 0; i < rg; i++) {
+                Object[] fila={
+                  listPackVenta.get(0).get(i),
+                    listPackVenta.get(1).get(i),
+                    "$"+listPackVenta.get(2).get(i),
+                };
+            tableInformePack.addRow(fila);
+            int cant=0;
+            int total=0;
+                for (int j = 0; j < tbl_informePack.getRowCount(); j++) {
+                    cant+=Integer.parseInt((String)tbl_informePack.getValueAt(j, 1));
+                    String price= (String)tbl_informePack.getValueAt(j, 2);
+                    total+=Integer.parseInt((String)price.replaceAll("\\$", ""));
+                }
+            txt_cantidadPack.setText(Integer.toString(cant));
+            txt_totalPack.setText("$" +Integer.toString(total));
+            
+        }
+        
+    }//GEN-LAST:event_btn_buscarInformePackActionPerformed
 
     private void btn_searchCmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchCmActionPerformed
         // TODO add your handling code here:
@@ -2988,6 +3006,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JButton botonDesactivar;
     private javax.swing.JButton botonEditarRrss;
     private javax.swing.JButton botonGuardarRrss;
+    private javax.swing.JButton btn_buscarInformePack;
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_desactivar;
     private javax.swing.JButton btn_desactivarPack;
@@ -3000,7 +3019,6 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JTextField buscarRrss;
     private javax.swing.JComboBox<String> cmb_comunas;
     private javax.swing.JTextField codigoRrss;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
@@ -3090,11 +3108,10 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private com.toedter.calendar.JDateChooser jdate_desde;
     private com.toedter.calendar.JDateChooser jdate_desdeComuna;
-    private com.toedter.calendar.JDateChooser jdate_hasta;
+    private com.toedter.calendar.JDateChooser jdate_desdePack;
     private com.toedter.calendar.JDateChooser jdate_hastaComuna;
+    private com.toedter.calendar.JDateChooser jdate_hastaPack;
     private javax.swing.JLabel jl_buttonBack;
     private javax.swing.JLabel jl_buttonSend;
     private javax.swing.JPanel jp_pack;
@@ -3108,6 +3125,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JTable tbl_articuloPackSelect;
     private javax.swing.JTable tbl_banco;
     private javax.swing.JTable tbl_comuna;
+    private javax.swing.JTable tbl_informePack;
     private javax.swing.JTable tbl_informePackComuna;
     private javax.swing.JTable tbl_pack;
     private javax.swing.JTable tbl_usuario;
