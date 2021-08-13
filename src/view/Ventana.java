@@ -26,6 +26,7 @@ import java.util.Vector;
 import java.util.stream.Stream;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.Articulo;
 import model.Banco;
@@ -263,9 +264,9 @@ public class Ventana extends javax.swing.JFrame {
         jPanel21 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
+        btn_buscarInformePack = new javax.swing.JButton();
         jdate_desdePack = new com.toedter.calendar.JDateChooser();
         jdate_hastaPack = new com.toedter.calendar.JDateChooser();
-        btn_buscarInformePack = new javax.swing.JButton();
         jPanel24 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tbl_informePack = new javax.swing.JTable();
@@ -1727,27 +1728,29 @@ public class Ventana extends javax.swing.JFrame {
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel21)
                     .addComponent(jLabel22))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jdate_desdePack, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                    .addComponent(jdate_hastaPack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(30, 30, 30)
+                .addGap(28, 28, 28)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jdate_hastaPack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jdate_desdePack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addComponent(btn_buscarInformePack, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel21)
-                    .addComponent(jdate_desdePack, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jdate_desdePack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel22)
-                        .addComponent(jdate_hastaPack, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_buscarInformePack, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_buscarInformePack, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jdate_hastaPack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22))))
                 .addGap(37, 37, 37))
         );
 
@@ -1797,6 +1800,11 @@ public class Ventana extends javax.swing.JFrame {
         jLabel20.setText("Total");
 
         jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/excel.png"))); // NOI18N
+        jLabel25.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel25MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -2788,18 +2796,32 @@ public class Ventana extends javax.swing.JFrame {
     private void btn_buscarInformePackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarInformePackActionPerformed
         // TODO add your handling code here:
         
-        Date dateDesde = jdate_desdePack.getDate();
+        /*Date dateDesde = jdate_desdePack.getDate();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-mm-dd");
         String des1 = formato.format(dateDesde);
-        
-        Date dateHasta = jdate_hastaPack.getDate();
+        System.out.println(""+des1);
+                
+        Date dateHasta = jdate_desdePack.getDate();
         SimpleDateFormat formato2 = new SimpleDateFormat("yyyy-mm-dd");
-        String des2 = formato.format(dateHasta);
+        String des2 = formato2.format(dateHasta);
+*/
+
+        
+        
+        
+        String des1 =((JTextField)jdate_desdePack.getDateEditor().getUiComponent()).getText();
+        String fechaInit = des1.substring(6, 10)+"-"+des1.substring(4, 5)+"-"+des1.substring(1, 2);
+        System.out.println(""+fechaInit);
+        
+        
+        String des2 =((JTextField)jdate_hastaPack.getDateEditor().getUiComponent()).getText();
+        String fechaFn = des2.substring(6, 10)+"-"+des2.substring(4, 5)+"-"+des2.substring(1, 2);
+        System.out.println(""+fechaFn);
         
         
         ControllerPack ctrPack = new ControllerPack();
         List<List<Object>> listPackVenta = new ArrayList<List<Object>>();
-        listPackVenta= ctrPack.listPack(des1, des2);
+        listPackVenta= ctrPack.listPack(fechaInit, fechaFn);
         
         DefaultTableModel tableInformePack = (DefaultTableModel)tbl_informePack.getModel();
             tableInformePack.setRowCount(0);
@@ -2954,6 +2976,55 @@ public class Ventana extends javax.swing.JFrame {
             System.out.println(io);
         }
     }//GEN-LAST:event_jLabel28MouseClicked
+
+    private void jLabel25MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel25MouseClicked
+        try{
+            Workbook wb = new XSSFWorkbook();
+            org.apache.poi.ss.usermodel.Sheet sheet =wb.createSheet();
+            Row rowCol = (Row) sheet.createRow(0);
+            for(int i=0;i<tbl_informePack.getColumnCount();i++)
+            {
+                Cell cell = rowCol.createCell(i);
+                cell.setCellValue(tbl_informePack.getColumnName(i));
+            }
+            for (int i = 0; i < tbl_informePack.getRowCount(); i++) {
+                Row row = (Row) sheet.createRow(i+1);
+                for(int k=0;k<tbl_informePack.getColumnCount();k++)
+                {
+                    Cell cell = row.createCell(k);
+                    if(tbl_informePack.getValueAt(i, k)!=null){
+                        cell.setCellValue(tbl_informePack.getValueAt(i, k).toString());
+                    }
+                }
+                
+        }
+            Row rwTotal=(Row)sheet.createRow(tbl_informePack.getRowCount()+1);
+            Cell cell = rwTotal.createCell(tbl_informePack.getRowCount());
+            cell.setCellValue("Total Cantidad");
+            Row rwTotal2=(Row)sheet.createRow(tbl_informePack.getRowCount()+2);
+            Cell cell2 = rwTotal2.createCell(tbl_informePack.getRowCount());
+            cell2.setCellValue(txt_cantidadPack.getText());
+            
+            rwTotal=(Row)sheet.createRow(tbl_informePack.getRowCount()+3);
+            //cell mueve de izquierda a derecha 
+            cell=rwTotal.createCell(tbl_informePack.getRowCount()+1);
+            cell.setCellValue("Total precio");
+            rwTotal=(Row)sheet.createRow(tbl_informePack.getRowCount()+4);
+            cell=rwTotal.createCell(tbl_informePack.getRowCount()+1);
+            cell.setCellValue(txt_precioPack.getText());
+            
+            FileOutputStream out = new FileOutputStream(new File("InformePack.xlsx"));
+            wb.write(out);
+            wb.close();
+            out.close();
+            System.out.println(out);
+            JOptionPane.showMessageDialog(rootPane, "Informe exportado");
+        }catch(FileNotFoundException e){
+            System.out.println(e);
+        }catch(IOException io){
+            System.out.println(io);
+        }
+    }//GEN-LAST:event_jLabel25MouseClicked
     //METÓDO QUE VALIDA QUE SE INGRESEN 2 NUMEROS
     private static boolean validarCod(String datos){
         return datos.matches("[0-9][1.2]");
